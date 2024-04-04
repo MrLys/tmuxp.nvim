@@ -7,7 +7,7 @@ end
 
 return require("telescope").register_extension({
 	setup = function(ext_config, config)
-		print("setting up telescope extension")
+		-- noop for now
 	end,
 	exports = {
 		list = function()

@@ -8,7 +8,8 @@ local function get_cmd()
 	return "tmuxp shell -c \"[print((w.name, w.id, s['name'])) for s in [{'name': session.name, 'session': session}  for session in server.sessions] for w in s['session'].list_windows()]\""
 end
 
-local function parse_line(line)
+-- Function to parse each line
+local function parse_line(line, _)
 	local name, id, session = line:match("%('([^']+)', '([^']+)', '([^']+)'%)")
 	return { name = name, id = id, session = session, index = id }
 end
@@ -58,8 +59,6 @@ M.list_windows = function()
 	end
 	local lines = vim.split(result, "\n")
 
-	-- Function to parse each line
-
 	-- Create the desired structure
 	result = {}
 	for i, line in ipairs(lines) do
@@ -68,5 +67,9 @@ M.list_windows = function()
 		end
 	end
 	return result
+end
+M.new_window = function()
+	local window_name = vim.fn.input("Enter the name of the tmux window: ")
+	vim.cmd("!tmuxp shell -c \"server.cmd('new-window;', 'rename-window', '" .. window_name .. "')\"")
 end
 return M
