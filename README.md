@@ -3,6 +3,8 @@ Pretty simple and somewhat redundant right now.
 ## Installation
 `Lazy`
 ```lua
+return {
+  "mrlys/tmuxp.nvim"
   cmd = {
     "TmuxpNewWindow",
     "TmuxpList",
